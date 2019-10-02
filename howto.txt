@@ -1,0 +1,21 @@
+0. I just executed the file as ./0 and it outputted the secret
+
+1. For this one I initially ran the binary file in gdb as gdb ./1, then i just ran it to see what it outputs and what it takes as input. It outputted that I needed to input some random 
+number that it was generating so I knew then that I needed to look for some rand() function. I first tried strace ./1 however I could not find the rand() function call anywhere or a 
+srand() call. So then I proceeded to use ltrace ./1 which only outputted I think 4-5 lines of code one containing srand() and rand(). The rand() function was the only one that 
+generated a number in hex form so I just converted that hex number which is random in every instance ltrace is called to decimal form and entered.
+
+2. First I ran gdb ./2 and found that there was a clue which said the password is the CURLcode without quotes if the call to curl_easy_perform was successful.
+And that gdb can't be used to answer this question. So then ran ltrace ./2 and saw that the return value of curl_easy_perform was 0     and if CURLcode returns 0 then that means
+that the call to curl_easy_perfit is CURLE_OK which returns 0 which means there is nothing wrong.
+
+3. First I ran gdb ./3 and found that I have to create a particular file with a special name then I have to have the appropriate access permissions on the file as well. So I created
+iamspecial. And gave it appropriate access permissions by making iamspecial a read/write accessible.
+
+4. First I ran gdb ./4 which let me know that I did not have the correct shared library added (lib361.so). So I added the shared libraries and
+needed to add the files sess3.c, sess3.h (as per lab 3) and created the shared library, then ran ltrace ./4, which showed me that I had to create
+a symbol called secretoperation. So I opened sess3.c and sess3.h and created a void file called secretoperation, and extern void secret operation in sess3.h. Then I saw that
+secret operation takes 2 parameters and must return a value of 10. So I changed secretoperation in sess3.c to be declared as an integer function and passed integers x and y and
+returned x*y. After that I saw another line with secret operation so I'm guessing it called twice which equaled 4 somehow  so then I had to go back and change secretoperation
+to return a value of x+y+1 because it was passing (3,6) initially which would give 10 and the second call of (1,2) would give 4 that way and thats how I got the secret code for that 1.
+                                                                                                                                                                                                                ~                                                                                                                                                                                                                  ~                                                                                                                                                                                                      
